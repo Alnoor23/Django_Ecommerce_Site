@@ -1,0 +1,171 @@
+@import "../mixins";
+.cart-main {
+    margin-top: 160px;
+    padding: 0 15px;
+    &__head {
+        display: block;
+        width: max-content;
+        color: rgba(37, 30, 71, 0.904);
+        text-transform: uppercase;
+        text-decoration: underline;
+        margin: 50px auto;
+    }
+    &__buttons {
+        max-width: 980px;
+        margin: 0 auto;
+        .back-button {
+            color: #fff;
+            transition: all 150ms ease-in-out;
+            padding: 6px;
+
+            &:hover {
+                color: #FB5859;
+            }
+        &__icon {
+            padding-top: 6px;
+            margin-right: 3px;
+
+            path {
+                stroke: #FFFFFF;
+            }
+        }
+        &:hover {
+            
+            #arrow-back {
+                stroke: #FB5859;
+            }
+        }
+        }
+        .checkout-button {
+            transition: all 150ms ease-in-out;
+            padding: 6px;
+    
+            &__icon {
+                padding-top: 6px;
+                margin-left: 2px;
+    
+                path {
+                    stroke: #FFFFFF;
+                }
+            }
+    
+            &:hover {
+                
+                #arrow-forward {
+                    stroke: #FB5859;
+                }
+            }
+        }
+    }
+    .cart {
+        height: auto;
+        max-width: 980px;
+        box-shadow: 0px 2px 8px 2px #e6f1ff;
+        border-radius: 8px;
+        margin-top: 15px;
+        padding-bottom: 15px;
+        .cart-empty {
+            text-align: center;
+            padding: 30px 0 20px 0;
+
+            @include breakpoint-down(small){
+                font-size: 20px;
+            }
+        }
+        &__item {
+            flex-wrap: wrap;
+            border-bottom: 2px solid rgba(21, 40, 65, 0.363);
+            padding: 18px 15px 15px 15px;
+            @include breakpoint-down(small){
+                display: grid;
+                grid-template-columns: 1fr 15px 1fr;
+                grid-template-rows: 1fr 15px 0.5fr;
+                align-items: center;
+                padding: 18px 0 15px 0;
+                grid-template-areas: "img . title"
+                                     ". . ."
+                                     "quantity . price";
+            }
+            &__image {
+                max-height: 100px;
+                max-width: 160px;
+                min-width: 159px;
+                overflow: hidden;
+                @include breakpoint-down(small) {
+                    max-height: 80px;
+                    max-width: 140px;
+                    min-width: 139px;
+                    grid-area: img;
+                    justify-self: start;
+                }
+                img {
+                    
+                    max-height: 100px;
+                    max-width: 160px;
+                    min-width: 159px;
+                    object-fit: cover;
+                    object-position: 50% 50%;
+                }
+            }
+            &__title {
+                min-width: 150px;
+                max-width: 150px;
+
+                @include breakpoint-down(small) {
+                    grid-area: title;
+                    //justify-self: center;
+                    max-width: 250px;
+                }
+            }
+            &__quantity {
+                flex-direction: column;
+                max-width: 30px;
+                @include breakpoint-down(small) {
+                    min-width: 60px;
+                    grid-area: quantity;
+                    justify-self: center;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+                h5 {
+                    margin: 2px 0;
+                }
+                img {
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 0.65;
+                    }
+                }
+            }
+            &__price {
+                color: #FC9024;
+                max-width: 100px;
+
+                @include breakpoint-down(small) {
+                    grid-area: price;
+                }
+            }
+        }
+    }
+    .cart_total {
+        width: max-content;
+        margin: 20px auto;
+
+        @include breakpoint-down(small){
+            font-size: 12px;
+        }
+        .t-t {
+            color: #FC9024;
+        }
+        h3 {
+            display: inline-block;
+            text-transform: uppercase;
+            margin: 0 40px;
+
+            @include breakpoint-down(small){
+                margin: 0 20px;
+            }
+        }
+    }
+}

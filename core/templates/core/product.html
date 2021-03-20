@@ -1,0 +1,78 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'page/product.css' %}">
+{% endblock extrahead %}
+
+{% block content %}
+<section class="product container container-px">
+    <div class="image-container">
+        <img src="{{ product.imageURL }}" alt="{{ product.name }}">
+    </div>
+    <div class="wrapper">
+        <div class="details">
+            <h2 class="title">{{ product.name }}</h2>
+            <p class="short-overview">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur minus officia molestiae!</p>
+            <h2 class="price">Rs : {{ product.price }}</h2>
+        </div>
+
+        <div class="buy">
+            <div class="buy__quantity flex flex-ai-c flex-jc-c">
+                <img id="quantity-up" src="{% static 'images/icon-arrow-up.svg' %}" alt="arrow-up">
+                <h5 id="quantity">1</h5>
+                <img id="quantity-down" src="{% static 'images/icon-arrow-down.svg' %}" alt="arrow-down">
+            </div>
+
+            <div class="btn-container flex flex-jc-sb">
+                <a href="../checkout/" data-product="{{ product.id }}" data-action="add" class="button buy-btn btn update-cart">Buy Now</a>
+                <a data-product="{{ product.id }}" data-action="add" class="button btn update-cart">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-details container container--px">
+    <h2 class="head">Product description</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, pariatur tempora nostrum illum minima obcaecati eos voluptate labore doloribus repellendus.</p>
+    <h2 class="head">Product Details</h2>
+    
+    {% if product.digital %}
+    <table class="detail-table">
+        <tr>
+            <td>Brand :</td>
+            <td>Lorem</td>
+        </tr>
+        <tr>
+            <td>Validity :</td>
+            <td>Lifetime</td>
+        </tr>
+        <tr>
+            <td>Digital :</td>
+            <td>{{ product.digital }}</td>
+        </tr>
+    </table>
+    {% else %}
+    <table class="detail-table">
+        <tr>
+            <td>Brand :</td>
+            <td>Lorem</td>
+        </tr>
+        <tr>
+            <td>Dimensions :</td>
+            <td>123 x 123</td>
+        </tr>
+        <tr>
+            <td>Digital :</td>
+            <td>{{ product.digital }}</td>
+        </tr>
+    </table>
+    {% endif %}
+    <h2 class="head">Summary</h2>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus ipsa tempora eum modi adipisci eaque! Nihil, dolores, dolorem amet incidunt esse quam mollitia ea voluptate ut, eius nesciunt ullam! Quaerat corporis eligendi nam suscipit voluptatem vel iste quis tenetur minus.</p>
+</section>
+{% endblock content %}
+
+{% block extrafoot %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock extrafoot %}

@@ -1,0 +1,177 @@
+@import "../mixins";
+.checkout-main {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    margin: 180px auto 0 auto;
+    .order-summary {
+        width: 460px;
+        min-width: 400px;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: 0px 3px 8px 2px #E6F1FF;
+        margin: 20px;
+        padding: 10px;
+        @include breakpoint-down(small){
+            width: 400px;
+            min-width: 300px;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin-bottom: 20px;
+        }
+        .products-wrap {
+            .cart-empty {
+                text-align: center;
+                text-decoration: none;
+                padding: 20px 0 10px 0;
+                @include breakpoint-down(small){
+                    font-size: 0.875rem;
+                }
+            }
+            .products {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px solid rgba(21, 40, 65, 0.363);
+                padding: 10px 0;
+                &__img {
+                    max-height: 60px;
+                    max-width: 100px;
+                    @include breakpoint-down(small){
+                        max-height: 50px;
+                        max-width: 80px;
+                    }
+                    img {
+                        max-height: 60px;
+                        width: 100%;
+
+                        @include breakpoint-down(small){
+                            max-height: 50px;
+                        }
+                    }
+                }
+                &__title {
+                    color: rgb(48, 48, 71);
+                    max-height: 54px;
+                    width: 160px;
+                    max-width: 160px;
+                    font-weight: 400;
+                    overflow: hidden;
+                    margin: 0;
+                    @include breakpoint-down(small){
+                        font-size: 10px;
+                        width: 155px;
+                        margin: 0 5px;
+                    }
+                }
+                &__price {
+                    width: 87px;
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: 400;
+                    color: #FC9024;
+                    overflow: hidden;
+                    @include breakpoint-down(medium){
+                        font-size: 0.9375rem;
+                    }
+                    @include breakpoint-down(small){
+                        font-size: 0.875rem;
+                    }
+                }
+            }
+            .cart-total {
+                text-align: center;
+                margin-top: 8px;
+
+                strong {
+                    color: #FC9024;
+                }
+            }
+        }
+    }
+    .user-info {
+        display: flex;
+        width: 490px;
+        min-width: 385px;
+        height: max-content;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0px 3px 8px 2px #E6F1FF;
+        margin: 20px;
+        padding: 10px;
+        @include breakpoint-down(small){
+            width: 360px;
+            min-width: 300px;
+            margin: 0 20px 20px 20px;
+        }
+        form {
+            width: 90%;
+            margin: auto;
+            @include breakpoint-down(small){
+                flex-direction: column;
+                align-items: center;
+                margin: auto;
+
+                .input {
+                    display: block;
+                    margin: 6px auto;
+                }
+            }
+            h4 {
+                width: 66%;
+                border-bottom: 1.5px solid rgba(21, 40, 65, 0.363);
+                border-top: 1.5px solid rgba(21, 40, 65, 0.363);
+                margin: 14px auto;
+                padding: 5px 0;
+            }
+            .btn-container {
+                display: flex;
+                width: 90%;
+                justify-self: center;
+                align-self: center;
+                margin: 20px auto;
+
+                @include breakpoint-up(medium){
+                    margin: 15px auto;
+                }
+
+                .button {
+                    display: block;
+                    width: 100%;
+                    margin: 5px 6px;
+                }
+            }
+        }
+    }
+    .pay-box {
+        width: 490px;
+        min-width: 385px;
+        height: max-content;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0px 3px 8px 2px #E6F1FF;
+        margin: 20px;
+        padding: 10px;
+        @include breakpoint-down(small){
+            width: 360px;
+            min-width: 300px;
+            margin: 0 20px 20px 20px;
+        }
+        .button {
+            width: 150px;
+        }
+    }
+}
+.btn-hide {
+    overflow: hidden;
+    height: 0px;
+    margin: 0 !important;
+}
+.visible {
+    display: block;
+}
+.hidden {
+    display: none;
+}

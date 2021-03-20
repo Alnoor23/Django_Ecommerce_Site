@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'page/cart.css' %}">
+{% endblock extrahead %}
+
+{% block content %}
+<section class="cart-main">
+    <h1 class="cart-main__head">your cart</h1>
+
+    <div class="cart-main__buttons flex flex-ai-c flex-jc-sb">
+        <a href="../" class="back-button button"><svg class="back-button__icon" xmlns="http://www.w3.org/2000/svg" width="11.182" height="18.121" viewBox="0 0 11.182 18.121"><path id="arrow-back" d="M1,1,9,9l8-8" transform="translate(11.121 0.061) rotate(90)" fill="none" stroke="#ffffff" stroke-width="3"/></svg>Go Back</a>
+        <a href="/checkout" class="checkout-button button">Checkout<svg class="checkout-button__icon" xmlns="http://www.w3.org/2000/svg" width="11.182" height="18.121" viewBox="0 0 11.182 18.121"><path id="arrow-forward" d="M1,1,9,9l8-8" transform="translate(0.061 18.061) rotate(-90)" fill="none" stroke="#ffffff" stroke-width="3"/></svg></a>    
+    </div>
+
+    <div class="cart container container--px">
+        {% if not items %}
+        <h1 class="cart-empty">YOUR CART IS EMPTY</h1>
+        {% else %}
+        {% for item in items %}
+        <div class="cart__item flex flex-ai-c flex-jc-sb">
+            <a class="cart__item__image" href="../product/{{ item.product.id }}">
+                <img src="{{ item.product.imageURL }}" alt="&#10071; product-image">
+            </a>
+            <h4 class="cart__item__title">{{ item.product.name }}</h4>
+
+            <div class="cart__item__quantity flex flex-ai-c">
+                    <img data-product="{{ item.product.id }}" data-action="add" id="quantity-up" class="update-cart" src="{% static 'images/icon-arrow-up.svg' %}" alt="arrow-up">
+                    <h5>{{ item.quantity }}</h5>
+                    <img data-product="{{ item.product.id }}" data-action="remove" id="quantity-down" class="update-cart" src="{% static 'images/icon-arrow-down.svg' %}" alt="arrow-down">
+            </div>
+            <h5 class="cart__item__price">Rs : {{ item.get_total }}</h5>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="cart_total flex flex-ai-c">
+        <h3>Items : <strong class="t-t">{{ order.get_cart_items }}</strong></h3>
+        <h3>Total : <strong class="t-t">{{ order.get_cart_total}} Rs</strong></h3>
+    </div>
+</section>
+{% endblock content %}
+
+{% block extrafoot %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock extrafoot %}

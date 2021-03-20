@@ -1,0 +1,18 @@
+.form-container {
+    height: max-content;
+    width: 520px;
+    border-radius: 4px;
+    box-shadow: 0px 3px 8px 2px #e6f1ff;
+    margin: auto;
+    padding: 20px;
+    .form {
+        .from-element {
+            text-align: center;
+            margin: auto;
+
+            input {
+                height: 30px;
+            }
+        }
+    }
+}

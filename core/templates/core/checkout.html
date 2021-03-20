@@ -1,0 +1,140 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'page/checkout.css' %}">
+{% endblock extrahead %}
+
+{% block content %}
+<section class="checkout-main container container--px flex flex-ai-c flex-jc-c">
+    <div class="order-summary">
+        <h1>order summary</h2>
+
+        <div class="products-wrap">
+            {% if not items %}
+            <h4 class="cart-empty">YOUR CART IS EMPTY</h4>
+            {% else %}
+            {% for item in items %}
+            <div class="products">
+                <div class="products__img">
+                    <img src="{{ item.product.imageURL }}" alt="&#10071; product-image">
+                </div>
+    
+                <h5 class="products__title"><strong>{{ item.product.name }} </strong> x {{ item.quantity }}</h5>
+                <p class="products__price">Rs : {{ item.product.price }}</p>
+            </div>
+            {% endfor %}
+            <h4 class="cart-total">TOTAL : <strong>{{ order.get_cart_total }} Rs</strong> </h4>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if items %}
+    <div class="user-info">
+        <form id="form" method="POST"> {% csrf_token %}
+            <input class="input" type="text" id="name" placeholder="Name" required >
+            <input class="input" type="email" id="email" placeholder="E-mail" required>
+            
+            <div id="shipping-info">
+                <h4>Shipping Information</h4>
+                <input class="input" type="text" id="address" placeholder="Address line 1" required>
+                <input class="input" type="text" id="address1" placeholder="Address line 2(Optional)">
+                <input class="input" type="tel" id="number" placeholder="Phone number" required>
+                <input class="input" type="text" id="city" placeholder="City" required>
+            </div>
+    
+            <div id="form-button" class="btn-container">
+                <!--<a class="button back" href="../cart">GO BACK</a>-->
+                <input class="button forward" type="submit" value="CONTINUE">
+            </div>
+          </form>
+    </div>
+    {% endif %}
+
+    <div id="payment-option" class="hidden pay-box">
+        <h1>PAYMENT OPTION</h1>
+        <a href="." id="make-payment" class="button">MAKE PAYMENT</a>
+    </div>
+</section>
+{% endblock content %}
+
+{% block extrafoot %}
+<script type="text/javascript">
+    var shipping = '{{ order.shipping }}'
+    var total = '{{ order.get_cart_total|floatformat:2 }}'
+    var total_cart_items = '{{ order.get_cart_items }}'
+
+    if (shipping == 'False' &&  total_cart_items != 0) {
+        document.getElementById('shipping-info').innerHTML = '';
+    }
+
+    if(total_cart_items != 0) {
+        var form = document.getElementById('form');
+        
+        form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        console.log('Form Submitted...');
+        document.getElementById('form-button').classList.add('btn-hide')
+        document.getElementById('payment-option').classList.remove('hidden')
+        document.getElementById('payment-option').classList.add('visible')
+    });
+    }
+
+    paybtn = document.getElementById('make-payment');
+    paybtn.addEventListener('click', function() {
+        submitFormData();
+    });
+
+    function submitFormData() {
+
+        var userFormData = {
+            'name': null,
+            'email': null,
+            'total': total,
+        }
+
+        var shippingInfo = {
+            'address': null,
+            'address1': null,
+            'city': null,
+            'number': null,
+        }
+
+        console.log(form)
+
+        if(shipping != 'False') {
+            shippingInfo.address = form.address.value
+            shippingInfo.address1 = form.address1.value
+            shippingInfo.city = form.city.value
+            shippingInfo.number = form.number.value
+        }
+        console.log(shippingInfo)
+
+        if(user == 'AnonymousUser') {
+            userFormData.name = form.name.value
+            userFormData.email = form.email.value
+        }
+
+        var url = '/processorder/';
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,              
+            },
+            body:JSON.stringify({'form': userFormData, 'shipping': shippingInfo})
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success :', data);
+            alert('Transaction Completed.\n (Not a real Site)');
+            back = document.body.style.backgroundColor = "white";
+            cart = {}
+            document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+
+            window.location.href = "../"
+        })
+    }
+</script>
+{% endblock extrafoot %}

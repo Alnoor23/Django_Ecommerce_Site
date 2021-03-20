@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'page/register.css' %}">
+{% endblock extrahead %}
+
+{% block content %}
+<section class="form-container">
+    <h1 class="head">REGISTER</h1>
+    <form class="form" action="" method="post">
+        {% csrf_token %}
+        <div class="from-element">
+            <label for="username">{{ form.username.label }} : </label> 
+            {{ form.username }}
+        </div>
+        <div class="from-element">
+            <label for="email">{{ form.email.label }} : </label> 
+            {{ form.email }}        
+        </div>
+        <div class="from-element">
+            <label for="password1">{{ form.password1.label }} : </label> 
+            {{ form.password1 }}        
+        </div>
+        <div class="from-element">
+            <label for="password2">{{ form.password2.label }} : </label> 
+            {{ form.password2 }}
+        </div>
+        {{ form.errors}}
+        
+        <input class="button" type="submit" value="Submit" name="Create User">
+    </form>
+</section>
+<p class="redirect">Already have an account? <a href="../login/">Sign in</a></p>
+{% endblock content %}

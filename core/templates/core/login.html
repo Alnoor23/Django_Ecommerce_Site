@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'page/login.css' %}">
+{% endblock extrahead %}
+
+{% block content %}
+<section class="form-wrapper">
+  <h1 class="head">LOGIN</h1>
+  <form class="form" action="" method="POST"> {% csrf_token %}
+    <div class="form-element">
+      <label for="name">Name :</label>
+      <input type="text" name="name">
+    </div>
+    <div class="form-element">
+      <label for="password">Password :</label>
+      <input type="password" name="password">
+    </div>
+      {% for message in messages %}
+        <p class="message">{{ message }}</p>
+      {% endfor %}
+      <input class="button" type="submit" value="Log in" name="Login">
+  </form>
+</section>
+<p class="redirect">Don't have an account? <a href="../login/">Sign Up</a></p>
+{% endblock content %}

@@ -1,0 +1,116 @@
+@import "../mixins";
+.carousel {
+    position: relative;
+    max-height: 600px;
+    min-height: 220px;
+    height: 45vw;
+    width: 96%;
+    max-width: 1350px;
+    border-radius: 8px;
+    margin: 0 auto;
+    overflow: hidden;
+    &__track {
+        position: relative;
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        transition: transform 500ms ease-in-out;
+        &-container {
+            position: relative;
+            height: 100%;
+            background: rgb(235, 235, 235);
+        }
+    }
+    &__slide {
+        position: absolute;
+        max-height: 600px;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        &__image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+    &_nav {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        bottom: 25px;
+        padding: 10px 0;
+        &__indicator {
+            border-radius: 3px;
+            height: 6px;
+            width: 22px;
+            background: #b3b3b3;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .current-slide {
+            background: #6d6d6d;
+        }
+    }
+}
+.store-main {
+    display: flex;
+    flex-wrap: wrap;
+    .product {
+        display: block;
+        height: 290px;
+        width: 200px;
+        box-shadow: 0px 3px 8px #E6F1FF;
+        border-radius: 6px;
+        overflow: hidden;
+        margin: 10px;
+        transition: all 200ms ease-in-out;
+        &:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0px 1px 10px #adc9ef;
+        }
+        @include breakpoint-down(small){
+            display: flex;
+            height: 120px;
+            width: 320px;
+        }
+        &__img {
+            height: 200px;
+            width: 200px;
+            object-fit: cover;
+            object-position: 50% 50%;
+            @include breakpoint-down(small){
+                min-height: 120px;
+                max-height: 120px;
+                min-width: 120px;
+                max-width: 120px;
+            }
+        }
+        &__text {
+            @include breakpoint-down(small){
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            &__title {
+                color: rgb(48, 48, 71);
+                height: 54px;
+                max-height: 54px;
+                overflow: hidden;
+                margin: 6px 6px 0 6px;
+                @include breakpoint-down(small){
+                    margin: 6px;
+                }                
+            }
+            &__price {
+                color: #FC9024;
+                overflow: hidden;
+                margin: 2px 6px 0 6px;
+                @include breakpoint-down(small){
+                    margin: 6px;
+                }
+            }
+        }
+    }
+}

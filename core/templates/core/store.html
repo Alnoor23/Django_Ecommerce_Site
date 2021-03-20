@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'page/store.css' %}">
+{% endblock extrahead %}
+
+{% block content %}
+<section class="carousel">
+    <div class="carousel__track-container">
+        <ul class="carousel__track">
+            <li class="carousel__slide">
+                <a href="/product/1"><img class="carousel__slide__image" src="/static/images/product-images/headphones.jpg" alt=""></a>
+            </li>
+            <li class="carousel__slide">
+                <a href="/product/3"><img class="carousel__slide__image" src="/static/images/product-images/code.jpg" alt=""></a>
+            </li>
+            <li class="carousel__slide">
+                <a href="/product/5"><img class="carousel__slide__image" src="/static/images/product-images/shoes.jpg" alt=""></a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="carousel_nav">
+        <span class="carousel_nav__indicator current-slide"></span>
+        <span class="carousel_nav__indicator"></span>
+        <span class="carousel_nav__indicator"></span>
+    </div>
+</section>
+<h2 class="container container--px" style="padding: 20px 0 5px 20px; font-weight: 600;">Just for you</h2>
+<section class="store-main container container--px flex-jc-c">
+    {% for product in products %}
+    <a class="product" href="product/{{ product.id }}" >
+        <img class="product__img" src="{{ product.imageURL }}" alt=" product image not found">
+        <div class="product__text">
+            <h4 class="product__text__title">{{ product.name }}</h2>
+            <h3 class="product__text__price">Rs : {{ product.price }}</h3>
+        </div>
+    </a>
+    {% endfor %}        
+</section>
+{% endblock content %}
+
+{% block extrafoot %}
+<script src="{% static 'js/store.js' %}"></script>
+{% endblock extrafoot %}

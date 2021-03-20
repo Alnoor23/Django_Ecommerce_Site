@@ -1,0 +1,58 @@
+@import "mixins";
+.footer {
+    min-height: 100px;
+    height: auto;
+    background-color: #001b3e;
+    margin-top: 60px !important;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "top-left . top-right"
+                         "bottom-left main bottom-right";
+    @include breakpoint_down(small) {
+        grid-template-columns: 1fr;
+        grid-template-areas: "top-left"
+                             "top-right"
+                             "main"
+                             "bottom-left"
+                             "bottom-right";
+    }
+    &__text {
+        color: rgba(255, 255, 255, 0.692);
+        font-size: 12px;
+        margin: 4px 0;
+        a {
+            color: rgba(255, 255, 255, 0.952);
+            text-decoration: underline;
+        }
+    }
+    .top-left {
+        grid-area: top-left;
+        align-self: center;
+    }
+    .bottom-left {
+        grid-area: bottom-left;
+        align-self: center;
+    }
+    .name {
+        grid-area: main;
+        align-self: center;
+        justify-self: center;
+    }
+    .top-right {
+        grid-area: top-right;
+        align-self: center;
+        justify-self: end;
+    }
+    .bottom-right {
+        grid-area: bottom-right;
+        align-self: center;
+        justify-self: end;
+    }
+    .jsc {
+        
+        @include breakpoint_down(small) {
+            justify-self: center;
+        }
+    }
+}

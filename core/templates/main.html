@@ -1,0 +1,152 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Tech</title>
+    <link rel="icon" href="{% static 'images/logo/favicon.svg' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.svg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% block extrahead %}
+      
+    {% endblock extrahead %}
+</head>
+
+<body>
+  <div class="header-wrap">
+    <header class="header container container--px flex flex-jc-sb flex-ai-c">
+      <a href="/" class="header__logo">
+          <img sea src="{% static 'images/logo/logo.svg' %}" alt="SwiftTech-logo">
+      </a>
+      
+      <div class="header__wrap hide-for-desktop flex flex-ai-c">
+        <a href="/cart" class="cart">
+          <img class="cart-icon" src="{% static 'images/icon-cart.svg' %}" alt="icon-cart">
+          
+          {% if cartItems > 0 %}
+          <p class="cart-count">{{ cartItems }}</p>
+          {% endif %}
+        </a>
+  
+        <a href="#" id="hamburger" class="header__wrap__toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+      </div>
+
+      <div class="header__links flex flex-ai-c hide-for-mobile">
+        <!--<a href="#">Features</a>
+        <a href="#">Pricing</a>-->
+        <form class="search" action="/workingonitmaybe/" method="post">{% csrf_token %}
+          <input class="search__box" type="text" name="search" placeholder="Search Products">
+          <button class="search__btn" type="submit">
+            <img src="{% static 'images/icon-search.svg' %}" alt="icon-search">
+          </button>
+        </form>
+        {% if request.user.is_anonymous %}
+        <a href="/register"><span class="button">Sign in</span></a>
+        {% else %}
+        <a href="/logout"><span class="button">Log out</span></a>
+        {% endif %}
+        <a href="/cart" class="cart">
+          <img class="cart-icon" src="{% static 'images/icon-cart.svg' %}" alt="icon-cart">
+          {% if cartItems > 0 %}
+          <p id="cart-count">{{ cartItems }}</p>
+          {% endif %}
+        </a>
+      </div>
+
+      <div class="header__menu hide-for-desktop has-fade">
+        <!--<hr class="header__menu__line">
+        <a href="#">Features</a>
+        <hr class="header__menu__line">
+        <a href="#">Pricing</a>-->
+        <hr class="header__menu__line">
+        <form class="search" action="/workingonitmaybe/" method="post">{% csrf_token %}
+          <input class="search__box" type="text" name="search" placeholder="Search Products">
+          <button class="search__btn" type="submit">
+            <img src="{% static 'images/icon-search.svg' %}" alt="icon-search">
+          </button>
+        </form>
+        <hr class="header__menu__line">
+        {% if request.user.is_anonymous %}
+        <a href="/register"><span class="button header__menu__button">Sign in</span></a>
+        {% else %}
+        <a href="/logout"><span class="button header__menu__button">Log out</span></a>
+        {% endif %}
+        
+        <span class="header__menu__social">
+          <a href="#"><img src="{% static 'images/icon-facebook.svg' %}" alt="icon-facebook"></a>
+          <a href="#"><img src="{% static 'images/icon-twitter.svg' %}" alt="icon-twitter"></a>
+        </span>
+      </div>
+    </header>
+  </div>
+  <div class="content">
+    {% block content %}
+
+    {% endblock content %}
+  </div>
+  
+
+  <!--<footer class="footer container container--px">
+    <p class="footer__text jsc top-left">Lorem ipsum dolor sit amet consectetur.</p>
+    <p class="footer__text jsc bottom-left">Lorem ipsum dolor sit amet consectetur.</p>
+    <p class="footer__text jsc name">Made By <a href="https://github.com/alnoor23">Alnoor</a></p>
+    <p class="footer__text jsc bottom-right">Lorem ipsum dolor sit amet consectetur.</p>
+    <p class="footer__text jsc top-right">Lorem ipsum dolor sit amet consectetur.</p>
+  </footer>-->
+
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extrafoot %}
+    
+  {% endblock extrafoot %}
+  <script type="text/javascript">
+    var user = '{{ request.user }}'
+
+    function getToken(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for(var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    var csrftoken = getToken('csrftoken');
+
+
+    function getCookie(name) {
+      var cookieArr = document.cookie.split(";");
+      
+      for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+
+        if(name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+        }
+      }
+      return null;
+    }
+
+    var cart = JSON.parse(getCookie('cart'))
+    
+    if(cart == undefined) {
+      cart = {};
+      document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+    }
+
+    console.log('cart:', cart)
+  </script>
+</body>
+</html>
